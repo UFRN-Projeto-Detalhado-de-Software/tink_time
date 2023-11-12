@@ -1,8 +1,8 @@
 package com.eliasfs06.tinktime.model.dto;
 
-import com.eliasfs06.tinktime.model.PropostaTatuagem;
+import com.eliasfs06.tinktime.model.PropostaIdeia;
 
-public class PropostaTatuagemDTO {
+public class PropostaIdeiaDTO {
 
     private Long id;
 
@@ -12,10 +12,10 @@ public class PropostaTatuagemDTO {
 
     private String descricao;
 
-    public PropostaTatuagemDTO() {
+    public PropostaIdeiaDTO() {
     }
 
-    public PropostaTatuagemDTO(PropostaTatuagem propostaTatuagem) {
+    public PropostaIdeiaDTO(PropostaIdeia propostaTatuagem) {
         this.id = propostaTatuagem.getId();
         this.cliente = new UserDTO(propostaTatuagem.getCliente());
         this.tatuador = new UserDTO(propostaTatuagem.getTatuador());

@@ -17,10 +17,10 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/proposta-tatuagem")
-public class PropostaTatuagemController {
+public class PropostaIdeiaController {
 
     @Autowired
-    private PropostaTatuagemService propostaTatuagemService;
+    private PropostaIdeiaService propostaTatuagemService;
 
     @Autowired
     private EmpregadoService artistService;
@@ -44,7 +44,7 @@ public class PropostaTatuagemController {
     public ModelAndView listTatuagens(){
         ModelAndView modelAndView = new ModelAndView();
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        List<PropostaTatuagem> propostasList = propostaTatuagemService.listPropostasByTatuadorID(user.getId());
+        List<PropostaIdeia> propostasList = propostaTatuagemService.listPropostasByTatuadorID(user.getId());
         modelAndView.addObject("propostasList", propostasList);
         modelAndView.setViewName("propostaTatuagem/list");
         return modelAndView;
@@ -55,7 +55,7 @@ public class PropostaTatuagemController {
     public ModelAndView form() {
         ModelAndView modelAndView = new ModelAndView();
         List<Empregado> artistas = artistService.listActiveArtists();
-        modelAndView.addObject("newTatuagem", new PropostaTatuagemDTO());
+        modelAndView.addObject("newTatuagem", new PropostaIdeiaDTO());
         modelAndView.addObject("artistas", artistas);
         modelAndView.setViewName("propostaTatuagem/form");
         return modelAndView;
@@ -69,7 +69,7 @@ public class PropostaTatuagemController {
             User artist = userService.findByID(Long.parseLong(Tatuador));
             UserDTO userdto = new UserDTO(user);
             UserDTO artistdto = new UserDTO(artist);
-            PropostaTatuagemDTO propostaTatuagemDTO = new PropostaTatuagemDTO();
+            PropostaIdeiaDTO propostaTatuagemDTO = new PropostaIdeiaDTO();
             propostaTatuagemDTO.setCliente(userdto);
             propostaTatuagemDTO.setTatuador(artistdto);
             propostaTatuagemDTO.setDescricao(Descricao);
@@ -82,13 +82,13 @@ public class PropostaTatuagemController {
 
     @GetMapping("/getPropostasByCliente")
     @ResponseBody
-    public List<PropostaTatuagem> getPropostasByCliente(@RequestParam Long clienteId) {
+    public List<PropostaIdeia> getPropostasByCliente(@RequestParam Long clienteId) {
         return propostaTatuagemService.listPropostasByClienteID(clienteId);
     }
 
     @GetMapping("/buscar-horarios/{id}")
     public String agendarTatuagem(@PathVariable Long id, Model model){
-        PropostaTatuagem propostaTatuagem = propostaTatuagemService.get(id);
+        PropostaIdeia propostaTatuagem = propostaTatuagemService.get(id);
         EmpregadoDTO artistdto = artistService.findByUser(propostaTatuagem.getTatuador());
         Empregado artist = artistdto.toArtist();
         Agenda agenda = agendaService.findByArtist(artist);
@@ -120,7 +120,7 @@ public class PropostaTatuagemController {
         agendamento.setData(diaAgenda.getDia());
         agendamentoService.save(agendamento);
 
-        PropostaTatuagem propostaTatuagem = propostaTatuagemService.get(idProposta);
+        PropostaIdeia propostaTatuagem = propostaTatuagemService.get(idProposta);
         propostaTatuagem.setAgendamento(agendamento);
         propostaTatuagemService.save(propostaTatuagem);
 

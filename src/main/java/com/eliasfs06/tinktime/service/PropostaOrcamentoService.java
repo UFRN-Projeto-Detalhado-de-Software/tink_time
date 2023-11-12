@@ -2,13 +2,13 @@ package com.eliasfs06.tinktime.service;
 
 import com.eliasfs06.tinktime.exceptionsHandler.BusinessException;
 import com.eliasfs06.tinktime.model.PropostaOrcamento;
-import com.eliasfs06.tinktime.model.PropostaTatuagem;
+import com.eliasfs06.tinktime.model.PropostaIdeia;
 import com.eliasfs06.tinktime.model.User;
 import com.eliasfs06.tinktime.model.dto.PropostaOrcamentoDTO;
 import com.eliasfs06.tinktime.model.enums.StatusAprovacao;
 import com.eliasfs06.tinktime.repository.GenericRepository;
 import com.eliasfs06.tinktime.repository.PropostaOrcamentoRepository;
-import com.eliasfs06.tinktime.repository.PropostaTatuagemRepository;
+import com.eliasfs06.tinktime.repository.PropostaIdeiaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +28,7 @@ public class PropostaOrcamentoService extends GenericService<PropostaOrcamento> 
     private GenericRepository<User> userRepository;
 
     @Autowired
-    private PropostaTatuagemRepository propostaTatuagemRepository;
+    private PropostaIdeiaRepository propostaTatuagemRepository;
 
     public PropostaOrcamentoService(GenericRepository<PropostaOrcamento> repository) {
         super(repository);
@@ -52,7 +52,7 @@ public class PropostaOrcamentoService extends GenericService<PropostaOrcamento> 
             throw new BusinessException("Cliente ou tatuador inválidos");
         }
 
-        PropostaTatuagem propostaTatuagem = propostaTatuagemRepository.findPropostaTatuagemByClienteAndTatuadorAndDescricao(cliente, tatuador, descricao);
+        PropostaIdeia propostaTatuagem = propostaTatuagemRepository.findPropostaTatuagemByClienteAndTatuadorAndDescricao(cliente, tatuador, descricao);
 
         if (propostaTatuagem == null) {
             throw new BusinessException("Proposta de tatuagem inválida");

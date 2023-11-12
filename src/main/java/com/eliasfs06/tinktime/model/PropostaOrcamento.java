@@ -13,7 +13,7 @@ public class PropostaOrcamento extends BaseEntity {
 
     @OneToOne
     @JoinColumn(name = "propostatatuagem_id")
-    private PropostaTatuagem propostaTatuagem;
+    private PropostaIdeia propostaTatuagem;
 
     private Float orcamento;
 
@@ -31,11 +31,11 @@ public class PropostaOrcamento extends BaseEntity {
         this.id = id;
     }
 
-    public PropostaTatuagem getPropostaTatuagem() {
+    public PropostaIdeia getPropostaTatuagem() {
         return propostaTatuagem;
     }
 
-    public void setPropostaTatuagem(PropostaTatuagem propostaTatuagem) {
+    public void setPropostaTatuagem(PropostaIdeia propostaTatuagem) {
         this.propostaTatuagem = propostaTatuagem;
     }
 

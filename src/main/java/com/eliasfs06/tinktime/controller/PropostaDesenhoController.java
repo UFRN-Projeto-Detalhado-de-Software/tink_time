@@ -4,27 +4,21 @@ import ch.qos.logback.core.model.Model;
 import com.eliasfs06.tinktime.exceptionsHandler.BusinessException;
 import com.eliasfs06.tinktime.model.Client;
 import com.eliasfs06.tinktime.model.PropostaDesenho;
-import com.eliasfs06.tinktime.model.PropostaOrcamento;
 import com.eliasfs06.tinktime.model.User;
 import com.eliasfs06.tinktime.model.dto.PropostaDesenhoDTO;
 import com.eliasfs06.tinktime.model.dto.PropostaOrcamentoDTO;
-import com.eliasfs06.tinktime.model.dto.PropostaTatuagemDTO;
+import com.eliasfs06.tinktime.model.dto.PropostaIdeiaDTO;
 import com.eliasfs06.tinktime.model.enums.StatusAprovacao;
 import com.eliasfs06.tinktime.service.ClientService;
 import com.eliasfs06.tinktime.service.PropostaDesenhoService;
 import com.eliasfs06.tinktime.service.PropostaOrcamentoService;
-import com.eliasfs06.tinktime.service.PropostaTatuagemService;
-import jakarta.servlet.http.HttpServletResponse;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
+import com.eliasfs06.tinktime.service.PropostaIdeiaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +33,7 @@ public class PropostaDesenhoController {
     private ClientService clientService;
 
     @Autowired
-    private PropostaTatuagemService propostaTatuagemService;
+    private PropostaIdeiaService propostaTatuagemService;
 
     @Autowired
     private PropostaOrcamentoService propostaOrcamentoService;
@@ -81,7 +75,7 @@ public class PropostaDesenhoController {
         try {
             PropostaDesenhoDTO propostaDesenhoDTO = new PropostaDesenhoDTO();
 
-            PropostaTatuagemDTO propostaTatuagem = propostaTatuagemService.findById(Long.parseLong(tatuagem));
+            PropostaIdeiaDTO propostaTatuagem = propostaTatuagemService.findById(Long.parseLong(tatuagem));
             PropostaOrcamentoDTO propostaOrcamento = propostaOrcamentoService.findById(Long.parseLong(orcamento));
 
             propostaOrcamento.setPropostaTatuagem(propostaTatuagem);

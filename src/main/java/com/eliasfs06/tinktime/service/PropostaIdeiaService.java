@@ -1,11 +1,11 @@
 package com.eliasfs06.tinktime.service;
 
 import com.eliasfs06.tinktime.exceptionsHandler.BusinessException;
-import com.eliasfs06.tinktime.model.PropostaTatuagem;
+import com.eliasfs06.tinktime.model.PropostaIdeia;
 import com.eliasfs06.tinktime.model.User;
-import com.eliasfs06.tinktime.model.dto.PropostaTatuagemDTO;
+import com.eliasfs06.tinktime.model.dto.PropostaIdeiaDTO;
 import com.eliasfs06.tinktime.repository.GenericRepository;
-import com.eliasfs06.tinktime.repository.PropostaTatuagemRepository;
+import com.eliasfs06.tinktime.repository.PropostaIdeiaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,25 +16,25 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-public class PropostaTatuagemService extends GenericService<PropostaTatuagem> {
+public class PropostaIdeiaService extends GenericService<PropostaIdeia> {
 
     @Autowired
-    private PropostaTatuagemRepository propostaTatuagemRepository;
+    private PropostaIdeiaRepository propostaTatuagemRepository;
 
     @Autowired
     private GenericRepository<User> userRepository;
 
-    public PropostaTatuagemService(GenericRepository<PropostaTatuagem> repository) {
+    public PropostaIdeiaService(GenericRepository<PropostaIdeia> repository) {
         super(repository);
     }
 
-    public PropostaTatuagemDTO findById(Long id){
-        return new PropostaTatuagemDTO(Objects.requireNonNull(propostaTatuagemRepository.findById(id).orElse(null)));
+    public PropostaIdeiaDTO findById(Long id){
+        return new PropostaIdeiaDTO(Objects.requireNonNull(propostaTatuagemRepository.findById(id).orElse(null)));
     }
 
     @Transactional
-    public PropostaTatuagem create(PropostaTatuagemDTO propostaTatuagemDTO) throws BusinessException {
-        PropostaTatuagem propostaTatuagem = new PropostaTatuagem();
+    public PropostaIdeia create(PropostaIdeiaDTO propostaTatuagemDTO) throws BusinessException {
+        PropostaIdeia propostaTatuagem = new PropostaIdeia();
 
         if (propostaTatuagemDTO.getCliente() == null || propostaTatuagemDTO.getTatuador() == null) {
             throw new BusinessException("Cliente ou tatuador não pode ser nulo");
@@ -54,15 +54,15 @@ public class PropostaTatuagemService extends GenericService<PropostaTatuagem> {
         return propostaTatuagem;
     }
 
-    public List<PropostaTatuagem> listPropostasByTatuadorID(Long id){
-        Optional<List<PropostaTatuagem>> propostas =  propostaTatuagemRepository.findAllByTatuadorId(id);
+    public List<PropostaIdeia> listPropostasByTatuadorID(Long id){
+        Optional<List<PropostaIdeia>> propostas =  propostaTatuagemRepository.findAllByTatuadorId(id);
         if (propostas.isPresent())
             return propostas.get();
         return new ArrayList<>();
     }
 
-    public List<PropostaTatuagem> listPropostasByClienteID(Long id){
-        Optional<List<PropostaTatuagem>> propostas =  propostaTatuagemRepository.findAllByClienteId(id);
+    public List<PropostaIdeia> listPropostasByClienteID(Long id){
+        Optional<List<PropostaIdeia>> propostas =  propostaTatuagemRepository.findAllByClienteId(id);
         if (propostas.isPresent())
             return propostas.get();
         return new ArrayList<>();
