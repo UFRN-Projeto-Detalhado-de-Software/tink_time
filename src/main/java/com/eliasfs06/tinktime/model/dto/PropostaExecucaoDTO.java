@@ -1,8 +1,8 @@
 package com.eliasfs06.tinktime.model.dto;
 
-import com.eliasfs06.tinktime.model.PropostaDesenho;
+import com.eliasfs06.tinktime.model.PropostaExecucao;
 
-public class PropostaDesenhoDTO {
+public class PropostaExecucaoDTO {
 
     private Long id;
 
@@ -12,10 +12,10 @@ public class PropostaDesenhoDTO {
 
     private String statusAprovacao;
 
-    public PropostaDesenhoDTO() {
+    public PropostaExecucaoDTO() {
     }
 
-    public PropostaDesenhoDTO(PropostaDesenho propostaDesenho){
+    public PropostaExecucaoDTO(PropostaExecucao propostaDesenho){
         this.id = propostaDesenho.getId();
         this.desenho = propostaDesenho.getDesenho();
         this.propostaOrcamento = new PropostaOrcamentoDTO(propostaDesenho.getPropostaOrcamento());

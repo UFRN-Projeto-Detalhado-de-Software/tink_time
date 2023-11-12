@@ -1,12 +1,12 @@
 package com.eliasfs06.tinktime.service;
 
 import com.eliasfs06.tinktime.exceptionsHandler.BusinessException;
-import com.eliasfs06.tinktime.model.PropostaDesenho;
+import com.eliasfs06.tinktime.model.PropostaExecucao;
 import com.eliasfs06.tinktime.model.PropostaOrcamento;
-import com.eliasfs06.tinktime.model.dto.PropostaDesenhoDTO;
+import com.eliasfs06.tinktime.model.dto.PropostaExecucaoDTO;
 import com.eliasfs06.tinktime.model.enums.StatusAprovacao;
 import com.eliasfs06.tinktime.repository.GenericRepository;
-import com.eliasfs06.tinktime.repository.PropostaDesenhoRepository;
+import com.eliasfs06.tinktime.repository.PropostaExecucaoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,22 +15,22 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PropostaDesenhoService extends GenericService<PropostaDesenho> {
+public class PropostaDesenhoService extends GenericService<PropostaExecucao> {
 
     private final PropostaOrcamentoService propostaOrcamentoService;
 
-    private final PropostaDesenhoRepository propostaDesenhoRepository;
+    private final PropostaExecucaoRepository propostaDesenhoRepository;
 
-    public PropostaDesenhoService(GenericRepository<PropostaDesenho> repository,
+    public PropostaDesenhoService(GenericRepository<PropostaExecucao> repository,
                                   PropostaOrcamentoService propostaOrcamentoService,
-                                  PropostaDesenhoRepository propostaDesenhoRepository) {
+                                  PropostaExecucaoRepository propostaDesenhoRepository) {
         super(repository);
         this.propostaOrcamentoService = propostaOrcamentoService;
         this.propostaDesenhoRepository = propostaDesenhoRepository;
     }
     @Transactional
-    public PropostaDesenho create (PropostaDesenhoDTO propostaDesenhoDTO) throws BusinessException {
-        PropostaDesenho propostaDesenho = new PropostaDesenho();
+    public PropostaExecucao create (PropostaExecucaoDTO propostaDesenhoDTO) throws BusinessException {
+        PropostaExecucao propostaDesenho = new PropostaExecucao();
         if (propostaDesenhoDTO.getDesenho() == null) {
             throw new BusinessException("O desenho não pode ser vazio");
         }
@@ -50,13 +50,13 @@ public class PropostaDesenhoService extends GenericService<PropostaDesenho> {
     }
 
     @Transactional
-    public List<PropostaDesenho> listPropostasByClienteID(Long clienteId) {
-        Optional<List<PropostaDesenho>> propostaDesenhos = propostaDesenhoRepository.findAllByClienteId(clienteId);
+    public List<PropostaExecucao> listPropostasByClienteID(Long clienteId) {
+        Optional<List<PropostaExecucao>> propostaDesenhos = propostaDesenhoRepository.findAllByClienteId(clienteId);
         return propostaDesenhos.orElseGet(ArrayList::new);
     }
 
-    public PropostaDesenho aprovar(Long id) throws BusinessException {
-        PropostaDesenho propostaDesenho = propostaDesenhoRepository.findById(id).orElse(null);
+    public PropostaExecucao aprovar(Long id) throws BusinessException {
+        PropostaExecucao propostaDesenho = propostaDesenhoRepository.findById(id).orElse(null);
         if (propostaDesenho == null) {
             throw new BusinessException("Proposta de orçamento inválida");
         }
@@ -68,8 +68,8 @@ public class PropostaDesenhoService extends GenericService<PropostaDesenho> {
         return propostaDesenho;
     }
 
-    public PropostaDesenho recusar(Long id) throws BusinessException {
-        PropostaDesenho propostaDesenho = propostaDesenhoRepository.findById(id).orElse(null);
+    public PropostaExecucao recusar(Long id) throws BusinessException {
+        PropostaExecucao propostaDesenho = propostaDesenhoRepository.findById(id).orElse(null);
         if (propostaDesenho == null) {
             throw new BusinessException("Proposta de orçamento inválida");
         }

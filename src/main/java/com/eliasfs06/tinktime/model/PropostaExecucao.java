@@ -4,7 +4,7 @@ import com.eliasfs06.tinktime.model.enums.StatusAprovacao;
 import jakarta.persistence.*;
 
 @Entity
-public class PropostaDesenho extends BaseEntity {
+public class PropostaExecucao extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
