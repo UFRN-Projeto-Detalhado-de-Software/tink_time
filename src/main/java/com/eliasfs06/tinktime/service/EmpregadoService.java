@@ -1,11 +1,10 @@
 package com.eliasfs06.tinktime.service;
 
-import com.eliasfs06.tinktime.model.Agenda;
-import com.eliasfs06.tinktime.model.Artist;
+import com.eliasfs06.tinktime.model.Empregado;
 import com.eliasfs06.tinktime.model.User;
-import com.eliasfs06.tinktime.model.dto.ArtistDTO;
+import com.eliasfs06.tinktime.model.dto.EmpregadoDTO;
 import com.eliasfs06.tinktime.model.dto.UserDTO;
-import com.eliasfs06.tinktime.repository.ArtistRepository;
+import com.eliasfs06.tinktime.repository.EmpregadoRepository;
 import com.eliasfs06.tinktime.repository.GenericRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,40 +13,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ArtistService extends GenericService<Artist>{
+public class EmpregadoService extends GenericService<Empregado>{
 
     @Autowired
-    private ArtistRepository repository;
+    private EmpregadoRepository repository;
 
     @Autowired
     private AgendaService agendaService;
 
-    public ArtistService(GenericRepository<Artist> repository) {
+    public EmpregadoService(GenericRepository<Empregado> repository) {
         super(repository);
     }
 
-    public ArtistDTO findByUser(User user) {
-        Artist artist = repository.findByUser(user);
-        return new ArtistDTO(artist);
+    public EmpregadoDTO findByUser(User user) {
+        Empregado artist = repository.findByUser(user);
+        return new EmpregadoDTO(artist);
     }
 
     public void createArtist(User user) {
-        Artist artist = new Artist();
+        Empregado artist = new Empregado();
         artist.setUser(user);
         agendaService.createAgenda(artist);
         save(artist);
     }
 
-    public List<UserDTO> getListUserDTOArtists(List<Artist> artists){
+    public List<UserDTO> getListUserDTOArtists(List<Empregado> artists){
         List<UserDTO> artistsUsers = new ArrayList<>();
-        for (Artist artist : artists) {
+        for (Empregado artist : artists) {
             artistsUsers.add(new UserDTO(artist.getUser()));
         }
 
         return artistsUsers;
     }
 
-    public java.util.List<Artist> listActiveArtists() {
+    public java.util.List<Empregado> listActiveArtists() {
         return repository.listActiveArtists();
     }
 }

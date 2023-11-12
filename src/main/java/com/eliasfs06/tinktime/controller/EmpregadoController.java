@@ -1,11 +1,11 @@
 package com.eliasfs06.tinktime.controller;
 
 import com.eliasfs06.tinktime.model.*;
-import com.eliasfs06.tinktime.model.dto.ArtistDTO;
+import com.eliasfs06.tinktime.model.dto.EmpregadoDTO;
 import com.eliasfs06.tinktime.model.dto.FormCadastroHorarios;
 import com.eliasfs06.tinktime.repository.GenericRepository;
 import com.eliasfs06.tinktime.service.AgendaService;
-import com.eliasfs06.tinktime.service.ArtistService;
+import com.eliasfs06.tinktime.service.EmpregadoService;
 import com.eliasfs06.tinktime.service.DiaAgendaService;
 import com.eliasfs06.tinktime.service.HorarioService;
 import jakarta.validation.Valid;
@@ -19,16 +19,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @Controller
 @RequestMapping("artist")
-public class ArtistController extends GenericController<Artist> {
+public class EmpregadoController extends GenericController<Empregado> {
 
     @Autowired
-    private ArtistService artistService;
+    private EmpregadoService artistService;
 
     @Autowired
     private AgendaService agendaService;
@@ -39,14 +37,14 @@ public class ArtistController extends GenericController<Artist> {
     @Autowired
     private HorarioService horarioService;
 
-    public ArtistController(GenericRepository<Artist> repository) {
+    public EmpregadoController(GenericRepository<Empregado> repository) {
         super(repository);
     }
 
     @GetMapping("/profile")
     public String getProfile(Model model){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        ArtistDTO artist = artistService.findByUser(user);
+        EmpregadoDTO artist = artistService.findByUser(user);
 
         if(artist.getId() == null){
             artist.setUser(user);
@@ -58,7 +56,7 @@ public class ArtistController extends GenericController<Artist> {
     }
 
     @PostMapping("/profile")
-    public String saveProfile(@ModelAttribute("artist") @Valid ArtistDTO artist, BindingResult br, Model model){
+    public String saveProfile(@ModelAttribute("artist") @Valid EmpregadoDTO artist, BindingResult br, Model model){
 
         if(br.hasErrors()){
             return "artist/profile";
@@ -75,7 +73,7 @@ public class ArtistController extends GenericController<Artist> {
     public ModelAndView listArtists(){
         ModelAndView modelAndView = new ModelAndView();
 
-        List<Artist> artistList = artistService.listActiveArtists();
+        List<Empregado> artistList = artistService.listActiveArtists();
 
         modelAndView.addObject("artistList", artistList);
         modelAndView.setViewName("artist/list");
@@ -90,8 +88,8 @@ public class ArtistController extends GenericController<Artist> {
     @GetMapping("/agenda-dia/{data}")
     public String agendaDia(@PathVariable String data, Model model){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        ArtistDTO artistDTO = artistService.findByUser(user);
-        Artist artist = artistDTO.toArtist();
+        EmpregadoDTO artistDTO = artistService.findByUser(user);
+        Empregado artist = artistDTO.toArtist();
         Agenda agenda = agendaService.findByArtist(artist);
         DiaAgenda diaAgenda = diaAgendaService.findByDia(agenda, data);
         if(diaAgenda == null){

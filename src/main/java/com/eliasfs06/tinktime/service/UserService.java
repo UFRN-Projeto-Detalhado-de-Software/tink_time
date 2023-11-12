@@ -1,19 +1,14 @@
 package com.eliasfs06.tinktime.service;
 
-import com.eliasfs06.tinktime.model.Artist;
 import com.eliasfs06.tinktime.model.Person;
 import com.eliasfs06.tinktime.model.User;
 import com.eliasfs06.tinktime.model.UserRole;
 import com.eliasfs06.tinktime.model.dto.RegisterDTO;
-import com.eliasfs06.tinktime.model.dto.UserDTO;
 import com.eliasfs06.tinktime.repository.GenericRepository;
 import com.eliasfs06.tinktime.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class UserService extends GenericService<User>{
@@ -23,7 +18,7 @@ public class UserService extends GenericService<User>{
     @Autowired
     private PersonService personService;
     @Autowired
-    private ArtistService artistService;
+    private EmpregadoService artistService;
     @Autowired
     private ClientService clientService;
 

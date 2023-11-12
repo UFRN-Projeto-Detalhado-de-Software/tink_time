@@ -2,11 +2,10 @@ package com.eliasfs06.tinktime.model;
 
 import jakarta.persistence.*;
 
-import javax.swing.text.Style;
 import java.util.List;
 
 @Entity
-public class Artist extends BaseEntity{
+public class Empregado extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,14 +1,13 @@
 package com.eliasfs06.tinktime.model.dto;
 
-import com.eliasfs06.tinktime.model.Artist;
+import com.eliasfs06.tinktime.model.Empregado;
 import com.eliasfs06.tinktime.model.TattoStyle;
 import com.eliasfs06.tinktime.model.User;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
-public class ArtistDTO {
+public class EmpregadoDTO {
 
     @NotBlank(message = "{aboutMe.not.blank}")
     private String aboutMe;
@@ -16,17 +15,17 @@ public class ArtistDTO {
     private User user;
     private Long id;
 
-    public ArtistDTO(){}
+    public EmpregadoDTO(){}
 
-    public ArtistDTO(Artist artist) {
+    public EmpregadoDTO(Empregado artist) {
         this.aboutMe = artist.getAboutMe();
         this.styles = artist.getStyles();
         this.user = artist.getUser();
         this.id = artist.getId();
     }
 
-    public Artist toArtist(){
-        Artist artist = new Artist();
+    public Empregado toArtist(){
+        Empregado artist = new Empregado();
         artist.setAboutMe(this.aboutMe);
         artist.setStyles(this.styles);
         artist.setUser(this.user);

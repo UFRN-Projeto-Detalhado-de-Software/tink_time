@@ -1,6 +1,5 @@
 package com.eliasfs06.tinktime.service;
 
-import com.eliasfs06.tinktime.model.Artist;
 import com.eliasfs06.tinktime.model.DiaAgenda;
 import com.eliasfs06.tinktime.model.Horario;
 import com.eliasfs06.tinktime.repository.GenericRepository;

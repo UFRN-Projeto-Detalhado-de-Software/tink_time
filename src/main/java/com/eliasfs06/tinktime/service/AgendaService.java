@@ -27,7 +27,7 @@ public class AgendaService extends GenericService<Agenda> {
         super(repository);
     }
 
-    public void createAgenda(Artist artist) {
+    public void createAgenda(Empregado artist) {
         Agenda agenda = new Agenda();
         artist.setAgenda(agenda);
         save(agenda);
@@ -57,11 +57,11 @@ public class AgendaService extends GenericService<Agenda> {
         return diaAgenda;
     }
 
-    public Agenda findByArtist(Artist artist) {
+    public Agenda findByArtist(Empregado artist) {
         return agendaRepository.findByArtist(artist);
     }
 
-    public List<HorariosTatuagem> sugerirHorarios(Artist artist, Integer numeroSessoes) {
+    public List<HorariosTatuagem> sugerirHorarios(Empregado artist, Integer numeroSessoes) {
         List<DiaAgenda> diaAgendaDisponiveis = diaAgendaService.findDiaAgendaComHorariosAbertoByArtist(artist);
         List<DiaAgenda> diaAgendaPossiveis = new ArrayList<>();
 

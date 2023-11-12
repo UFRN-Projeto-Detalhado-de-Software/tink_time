@@ -23,7 +23,7 @@ public class PropostaTatuagemController {
     private PropostaTatuagemService propostaTatuagemService;
 
     @Autowired
-    private ArtistService artistService;
+    private EmpregadoService artistService;
 
     @Autowired
     private UserService userService;
@@ -54,7 +54,7 @@ public class PropostaTatuagemController {
     @GetMapping("/form")
     public ModelAndView form() {
         ModelAndView modelAndView = new ModelAndView();
-        List<Artist> artistas = artistService.listActiveArtists();
+        List<Empregado> artistas = artistService.listActiveArtists();
         modelAndView.addObject("newTatuagem", new PropostaTatuagemDTO());
         modelAndView.addObject("artistas", artistas);
         modelAndView.setViewName("propostaTatuagem/form");
@@ -89,8 +89,8 @@ public class PropostaTatuagemController {
     @GetMapping("/buscar-horarios/{id}")
     public String agendarTatuagem(@PathVariable Long id, Model model){
         PropostaTatuagem propostaTatuagem = propostaTatuagemService.get(id);
-        ArtistDTO artistdto = artistService.findByUser(propostaTatuagem.getTatuador());
-        Artist artist = artistdto.toArtist();
+        EmpregadoDTO artistdto = artistService.findByUser(propostaTatuagem.getTatuador());
+        Empregado artist = artistdto.toArtist();
         Agenda agenda = agendaService.findByArtist(artist);
 
         List<HorariosTatuagem> horariosDisponveis = agendaService.sugerirHorarios(artist, propostaTatuagem.getNumeroSessoes());
