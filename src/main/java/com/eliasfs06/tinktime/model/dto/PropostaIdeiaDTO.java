@@ -2,8 +2,6 @@ package com.eliasfs06.tinktime.model.dto;
 
 import com.eliasfs06.tinktime.model.PropostaIdeia;
 
-import java.text.ParseException;
-
 public class PropostaIdeiaDTO {
 
     private Long id;
@@ -13,8 +11,6 @@ public class PropostaIdeiaDTO {
     private UserDTO tatuador;
 
     private String descricao;
-
-    private byte[] referencia;
 
     public PropostaIdeiaDTO() {
     }
@@ -26,20 +22,10 @@ public class PropostaIdeiaDTO {
         this.descricao = propostaIdeia.getDescricao();
     }
 
-    public PropostaIdeiaDTO(UserDTO cliente, UserDTO tatuador, String descricao, byte[] referencia) {
+    public PropostaIdeiaDTO(UserDTO cliente, UserDTO tatuador, String descricao) {
         this.cliente = cliente;
         this.tatuador = tatuador;
         this.descricao = descricao;
-        this.referencia = referencia;
-    }
-
-    public PropostaIdeia toPropostaIdeia() throws ParseException {
-        PropostaIdeia propostaIdeia = new PropostaIdeia();
-        propostaIdeia.setCliente(this.cliente.toUser());
-        propostaIdeia.setTatuador(this.tatuador.toUser());
-        propostaIdeia.setDescricao(this.descricao);
-        propostaIdeia.setReferencia(this.referencia);
-        return propostaIdeia;
     }
 
     public Long getId() {
@@ -72,13 +58,5 @@ public class PropostaIdeiaDTO {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public byte[] getReferencia() {
-        return referencia;
-    }
-
-    public void setReferencia(byte[] referencia) {
-        this.referencia = referencia;
     }
 }

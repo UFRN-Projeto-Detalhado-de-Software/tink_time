@@ -3,7 +3,7 @@ package com.eliasfs06.tinktime.model;
 import java.util.Arrays;
 import java.util.List;
 
-public enum TattooStyle {
+public enum TattoStyle {
     TRIBAL("Tribal"),
     REALISM("Realism"),
     NEW_SCHOOL("New School"),
@@ -27,7 +27,7 @@ public enum TattooStyle {
 
     private final String description;
 
-    TattooStyle(String description) {
+    TattoStyle(String description) {
         this.description = description;
     }
 
@@ -35,7 +35,7 @@ public enum TattooStyle {
         return description;
     }
 
-    public static List<TattooStyle> getAllStyles() {
-        return Arrays.asList(TattooStyle.values());
+    public static List<TattoStyle> getAllStyles() {
+        return Arrays.asList(TattoStyle.values());
     }
 }
