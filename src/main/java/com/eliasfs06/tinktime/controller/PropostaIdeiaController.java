@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -62,14 +63,17 @@ public class PropostaIdeiaController {
     }
 
     @PostMapping("/create")
-    public String create(@RequestParam(value="descricao", required = true) String Descricao, @RequestParam(value="tatuador", required = true) String Funcionario,
-                         Model model) throws BusinessException {
+    public String create(
+            @RequestParam(value="descricao", required = true) String Descricao, @RequestParam(value="tatuador", required = true) String Funcionario,
+            @RequestParam(value="referencia", required = true) byte[] referencia, Model model) throws BusinessException {
         try {
             User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             User funcionario = userService.findByID(Long.parseLong(Funcionario));
-            propostaIdeiaService.create(new PropostaIdeiaDTO(new UserDTO(user), new UserDTO(funcionario), Descricao));
+            propostaIdeiaService.create(new PropostaIdeiaDTO(new UserDTO(user), new UserDTO(funcionario), Descricao, referencia));
         } catch (BusinessException e) {
             return "redirect:/index";
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
         return "redirect:/index";
     }

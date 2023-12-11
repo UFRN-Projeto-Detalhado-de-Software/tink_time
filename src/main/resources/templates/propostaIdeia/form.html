@@ -29,6 +29,12 @@
                     <input type="text" id="descricao" name="descricao" class="form-control" th:field="*{descricao}" />
                     <span th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" class="text-danger"></span>
                 </div>
+
+                <div class="form-group">
+                    <label for="referencia">Referência:</label>
+                    <input type="file" id="referencia" name="referencia" class="form-control" th:field="*{referencia}" required/>
+                </div>
+
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>

@@ -1,5 +1,6 @@
 package com.eliasfs06.tinktime.model;
 
+import com.eliasfs06.tinktime.model.enums.UnidadeFederacao;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -18,6 +19,9 @@ public class Person extends BaseEntity{
     private Date birthDate;
 
     private String email;
+
+    @Enumerated(EnumType.STRING)
+    private UnidadeFederacao ufResidencia;
 
     @Override
     public Long getId() {
@@ -51,5 +55,13 @@ public class Person extends BaseEntity{
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public UnidadeFederacao getUfResidencia() {
+        return ufResidencia;
+    }
+
+    public void setUfResidencia(UnidadeFederacao ufResidencia) {
+        this.ufResidencia = ufResidencia;
     }
 }

@@ -1,6 +1,9 @@
 package com.eliasfs06.tinktime.model.dto;
 
 import com.eliasfs06.tinktime.model.User;
+import com.eliasfs06.tinktime.model.UserRole;
+
+import java.text.ParseException;
 
 public class UserDTO {
 
@@ -23,6 +26,16 @@ public class UserDTO {
         this.password = user.getPassword();
         if (user.getUserRole() != null) this.role = user.getUserRole().toString();
         if (user.getPerson() != null) this.person = new PersonDTO(user.getPerson());
+    }
+
+    public User toUser() throws ParseException {
+        User user = new User();
+        user.setId(this.id);
+        user.setUsername(this.username);
+        user.setPassword(this.password);
+        user.setUserRole(UserRole.valueOf(this.role));
+        user.setPerson(this.person.toPerson());
+        return user;
     }
 
     public Long getId() {

@@ -15,6 +15,16 @@
         <div class="col-md-8">
             <h1>Bem-vindo</h1>
         </div>
+        <div th:if="${clientSuggestion != null && !clientSuggestion.isEmpty()}" class="col-md-8 mt-3">
+            <div class="card-header">
+                <h5>Novos tatuadores próximos à você:</h5>
+            </div>
+            <div th:each="suggestion : ${clientSuggestion}" class="card">
+                <div class="card-body">
+                    <span>[[${suggestion.user.person.name}]]</span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

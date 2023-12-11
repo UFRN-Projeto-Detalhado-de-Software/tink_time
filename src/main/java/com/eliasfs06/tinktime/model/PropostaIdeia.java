@@ -19,6 +19,9 @@ public class PropostaIdeia extends BaseEntity {
 
     private String descricao;
 
+    @Lob
+    private byte[] referencia;
+
     @OneToOne
     private Agendamento agendamento;
 
@@ -72,6 +75,14 @@ public class PropostaIdeia extends BaseEntity {
 
     public void setNumeroSessoes(Integer numeroSessoes) {
         this.numeroSessoes = numeroSessoes;
+    }
+
+    public byte[] getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(byte[] referencia) {
+        this.referencia = referencia;
     }
 
 }

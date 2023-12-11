@@ -12,7 +12,7 @@ public class Tatuador extends Funcionario {
     @ElementCollection
     @CollectionTable(name = "styles", joinColumns = @JoinColumn(name = "artist_id"))
     @Enumerated(EnumType.STRING)
-    private List<TattoStyle> styles;
+    private List<TattooStyle> styles;
 
     public Tatuador() {
     }
@@ -25,11 +25,11 @@ public class Tatuador extends Funcionario {
         this.estudio = estudio;
     }
 
-    public List<TattoStyle> getStyles() {
+    public List<TattooStyle> getStyles() {
         return styles;
     }
 
-    public void setStyles(List<TattoStyle> styles) {
+    public void setStyles(List<TattooStyle> styles) {
         this.styles = styles;
     }
 }

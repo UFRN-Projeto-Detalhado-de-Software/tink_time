@@ -1,10 +1,12 @@
 package com.eliasfs06.tinktime.service;
 
 import com.eliasfs06.tinktime.model.Client;
+import com.eliasfs06.tinktime.model.Funcionario;
 import com.eliasfs06.tinktime.model.User;
 import com.eliasfs06.tinktime.repository.ClienteRepository;
 import com.eliasfs06.tinktime.repository.GenericRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,5 +35,11 @@ public class ClientService extends GenericService<Client> {
     // findById
     public Client findById(Long id) {
         return repository.findById(id).orElse(null);
+    }
+
+    public List<Funcionario> getSuggetionByLoggedClient() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Client client = repository.findByUser(user);
+        return client.getSuggestedEmployees();
     }
 }

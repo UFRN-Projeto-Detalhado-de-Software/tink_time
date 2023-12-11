@@ -14,7 +14,6 @@ public interface PropostaIdeiaRepository extends GenericRepository<PropostaIdeia
     @Query("SELECT p FROM PropostaIdeia p WHERE p.tatuador.id = ?1")
     Optional<List<PropostaIdeia>> findAllByTatuadorId(Long id);
 
-    //find all by cliente id
     @Query("SELECT p FROM PropostaIdeia p WHERE p.cliente.id = ?1")
     Optional<List<PropostaIdeia>> findAllByClienteId(Long id);
 }

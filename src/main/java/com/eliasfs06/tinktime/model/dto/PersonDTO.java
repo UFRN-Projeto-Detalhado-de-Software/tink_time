@@ -2,6 +2,9 @@ package com.eliasfs06.tinktime.model.dto;
 
 import com.eliasfs06.tinktime.model.Person;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class PersonDTO {
 
     private Long id;
@@ -20,6 +23,16 @@ public class PersonDTO {
         this.name = person.getName();
         if (person.getBirthDate() != null) this.birthDate = person.getBirthDate().toString();
         this.email = person.getEmail();
+    }
+
+    public Person toPerson() throws ParseException {
+        Person person = new Person();
+        person.setId(this.id);
+        person.setName(this.name);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        if (this.birthDate != null) person.setBirthDate(formatter.parse(this.birthDate));
+        person.setEmail(this.email);
+        return person;
     }
 
     public Long getId() {

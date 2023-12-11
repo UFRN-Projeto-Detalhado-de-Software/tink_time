@@ -3,6 +3,7 @@ package com.eliasfs06.tinktime.model.dto;
 import com.eliasfs06.tinktime.model.Person;
 import com.eliasfs06.tinktime.model.User;
 import com.eliasfs06.tinktime.model.UserRole;
+import com.eliasfs06.tinktime.model.enums.UnidadeFederacao;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -22,13 +23,14 @@ public class RegisterDTO {
     private String email;
     @NotNull
     private UserRole userRole;
+    private UnidadeFederacao ufResidencia;
 
     public Person toPerson(){
         Person person = new Person();
         person.setName(this.getName());
         person.setBirthDate(this.getBirthDate());
         person.setEmail(this.getEmail());
-
+        person.setUfResidencia(ufResidencia);
         return person;
     }
 
@@ -86,5 +88,13 @@ public class RegisterDTO {
 
     public void setUserRole(UserRole userRole) {
         this.userRole = userRole;
+    }
+
+    public UnidadeFederacao getUfResidencia() {
+        return ufResidencia;
+    }
+
+    public void setUfResidencia(UnidadeFederacao ufResidencia) {
+        this.ufResidencia = ufResidencia;
     }
 }
