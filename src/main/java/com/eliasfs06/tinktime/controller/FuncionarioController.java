@@ -3,7 +3,6 @@ package com.eliasfs06.tinktime.controller;
 import com.eliasfs06.tinktime.model.*;
 import com.eliasfs06.tinktime.model.dto.FuncionarioDTO;
 import com.eliasfs06.tinktime.model.dto.FormCadastroHorarios;
-import com.eliasfs06.tinktime.model.dto.TatuadorDTO;
 import com.eliasfs06.tinktime.repository.GenericRepository;
 import com.eliasfs06.tinktime.service.AgendaService;
 import com.eliasfs06.tinktime.service.FuncionarioService;
@@ -45,27 +44,25 @@ public class FuncionarioController extends GenericController<Funcionario> {
     @GetMapping("/profile")
     public String getProfile(Model model){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        TatuadorDTO tatuador = (TatuadorDTO) funcionarioService.findByUser(user);
+        FuncionarioDTO funcionario = funcionarioService.findByUser(user);
 
-        if(tatuador.getId() == null){
-            tatuador.setUser(user);
+        if(funcionario.getId() == null){
+            funcionario.setUser(user);
         }
 
-        model.addAttribute("tatuador", tatuador);
-        model.addAttribute("allStyles", TattooStyle.getAllStyles());
-
+        model.addAttribute("funcionario", funcionario);
         return "funcionario/profile";
     }
 
     @PostMapping("/profile")
-    public String saveProfile(@ModelAttribute("tatuador") @Valid Tatuador tatuador, BindingResult br, Model model){
+    public String saveProfile(@ModelAttribute("funcionario") @Valid FuncionarioDTO funcionario, BindingResult br, Model model){
         if(br.hasErrors()){
             return "funcionario/profile";
         }
 
-        funcionarioService.save(tatuador);
-        model.addAttribute("tatuador", tatuador);
-        model.addAttribute("allStyles", TattooStyle.getAllStyles());
+        funcionarioService.save(funcionario.toFuncionario());
+        model.addAttribute("funcionario", funcionario);
+        model.addAttribute("allStyles", TattoStyle.getAllStyles());
 
         return "funcionario/profile";
     }

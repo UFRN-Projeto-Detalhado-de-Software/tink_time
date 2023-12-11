@@ -4,7 +4,6 @@ import com.eliasfs06.tinktime.exceptionsHandler.BusinessException;
 import com.eliasfs06.tinktime.model.PropostaIdeia;
 import com.eliasfs06.tinktime.model.User;
 import com.eliasfs06.tinktime.model.UserRole;
-import com.eliasfs06.tinktime.model.ValidadorDeIdeiaTatuagem;
 import com.eliasfs06.tinktime.model.dto.PropostaIdeiaDTO;
 import com.eliasfs06.tinktime.repository.GenericRepository;
 import com.eliasfs06.tinktime.repository.PropostaIdeiaRepository;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -36,21 +34,27 @@ public class PropostaIdeiaService extends GenericService<PropostaIdeia> {
     }
 
     @Transactional
-    public PropostaIdeia create(PropostaIdeiaDTO propostaIdeiaDTO) throws BusinessException, ParseException {
+    public PropostaIdeia create(PropostaIdeiaDTO propostaIdeiaDTO) throws BusinessException {
         PropostaIdeia propostaIdeia = new PropostaIdeia();
-        ValidadorDeIdeiaTatuagem validadorDeIdeiaTatuagem = new ValidadorDeIdeiaTatuagem(userRepository);
 
-        if (!validadorDeIdeiaTatuagem.validar(propostaIdeiaDTO)) {
-            throw new BusinessException("Criação de proposta inválida");
+        if (propostaIdeiaDTO.getCliente() == null || propostaIdeiaDTO.getTatuador() == null) {
+            throw new BusinessException("Cliente ou tatuador não pode ser nulo");
+        }
+        User cliente = userRepository.findById(propostaIdeiaDTO.getCliente().getId()).orElse(null);
+        User tatuador = userRepository.findById(propostaIdeiaDTO.getTatuador().getId()).orElse(null);
+
+        if (cliente == null || tatuador == null) {
+            throw new BusinessException("Cliente ou tatuador não encontrado");
         }
 
-        propostaIdeia = propostaIdeiaDTO.toPropostaIdeia();
-        save(propostaIdeia);
+        propostaIdeia.setCliente(cliente);
+        propostaIdeia.setTatuador(tatuador);
+        propostaIdeia.setDescricao(propostaIdeiaDTO.getDescricao());
+        propostaIdeiaRepository.save(propostaIdeia);
 
         return propostaIdeia;
     }
 
-    @Transactional
     public List<PropostaIdeia> listPropostasByTatuadorID(Long id){
         Optional<List<PropostaIdeia>> propostas =  propostaIdeiaRepository.findAllByTatuadorId(id);
         if (propostas.isPresent())
@@ -58,7 +62,6 @@ public class PropostaIdeiaService extends GenericService<PropostaIdeia> {
         return new ArrayList<>();
     }
 
-    @Transactional
     public List<PropostaIdeia> listPropostasByClienteID(Long id){
         Optional<List<PropostaIdeia>> propostas =  propostaIdeiaRepository.findAllByClienteId(id);
         if (propostas.isPresent())
@@ -66,7 +69,6 @@ public class PropostaIdeiaService extends GenericService<PropostaIdeia> {
         return new ArrayList<>();
     }
 
-    @Transactional
     public List<PropostaIdeia> getPropostasByRole(User user){
         List<PropostaIdeia> propostasList = new ArrayList<>();
         if(user.getUserRole() == UserRole.EMPLOYEE) {

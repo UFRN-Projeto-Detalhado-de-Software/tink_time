@@ -93,12 +93,10 @@ public class PropostaOrcamentoService extends GenericService<PropostaOrcamento> 
         return propostaOrcamento;
     }
 
-    @Transactional
     public PropostaOrcamentoDTO findById(Long id){
         return new PropostaOrcamentoDTO(Objects.requireNonNull(propostaOrcamentoRepository.findById(id).orElse(null)));
     }
 
-    @Transactional
     public List<PropostaOrcamento> listPropostasByClienteID(Long id) {
         Optional<List<PropostaOrcamento>> propostaOrcamentoOptional = propostaOrcamentoRepository.findAllByClienteId(id);
         if (propostaOrcamentoOptional.isPresent()) {
@@ -107,7 +105,6 @@ public class PropostaOrcamentoService extends GenericService<PropostaOrcamento> 
         return new ArrayList<>();
     }
 
-    @Transactional
     public List<PropostaOrcamento> findAllByStatusAprovacaoAndPropostaIdeiaId(Long ideiaId) {
         Optional<List<PropostaOrcamento>> propostaOrcamentosAprovados = propostaOrcamentoRepository.findAllByStatusAprovacaoAndPropostaIdeiaId(StatusAprovacao.APROVADO.name(), ideiaId);
         return propostaOrcamentosAprovados.orElseGet(ArrayList::new);
